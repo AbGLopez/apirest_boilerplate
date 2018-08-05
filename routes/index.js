@@ -1,5 +1,4 @@
 "use strict";
-
 var express = require('express');
 var router = express.Router();
 var sleep = require('sleep');
@@ -7,8 +6,15 @@ var crypto = require('crypto');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
-});
+	var domain = 'http://mongodb:5407',
+	    main_data = {
+		    create_user_url: domain + '/api/users/singup',
+		    auth_user_url: domain+ '/api/users/authenticate',
+	}
+	res.render('index', main_data);
+	});
+	
+
 
 
 // Eval concurrency con siege: siege -c 20 -r 5 http://localhost:3000/sleep
@@ -24,7 +30,5 @@ router.get('/sleep', function (req, res) {
 	res.send(randChars);
 
 })
-
-
 
 module.exports = router;
